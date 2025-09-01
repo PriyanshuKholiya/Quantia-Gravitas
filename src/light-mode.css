@@ -1,0 +1,274 @@
+/* Light Mode Styles - Luxurious Green Background with Golden Text */
+
+/* Light theme enhancements */
+html.theme-light {
+  --lux-accent: var(--luxury-gold);
+  --lux-accent-weak: rgba(212, 175, 55, 0.1);
+  --lux-accent-weak-2: rgba(212, 175, 55, 0.16);
+  --lux-accent-border: rgba(212, 175, 55, 0.28);
+  --lux-shadow: 0 10px 30px rgba(212, 175, 55, 0.1), 0 2px 6px rgba(0,0,0,0.04);
+  --paper: #1B4332;
+  --ink: #D4AF37;
+  --muted-ink: #E5C158;
+  --divider: #2D6A4F;
+  --divider-strong: #081C15;
+  
+  /* Override root colors for light mode */
+  color: #D4AF37;
+  background-color: #1B4332;
+}
+
+/* Light mode body and main background */
+html.theme-light body {
+  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+  color: #D4AF37;
+}
+
+html.theme-light .mega-text {
+  background: linear-gradient(135deg, #D4AF37, #E5C158);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.theme-light .accent {
+  color: #E5C158 !important;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+html.theme-light .section-header {
+  color: #E5C158 !important;
+}
+
+html.theme-light .section-header::after {
+  background: linear-gradient(90deg, #E5C158, transparent);
+}
+
+html.theme-light .card-lift {
+  background: rgba(45, 106, 79, 0.9);
+  border-color: #E5C158;
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+  color: #D4AF37;
+}
+
+html.theme-light .card-lift:hover {
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+  background: rgba(45, 106, 79, 0.95);
+  border-color: #FEF7E0;
+}
+
+html.theme-light .btn-outline {
+  color: #D4AF37;
+  border-color: #E5C158;
+  background: rgba(45, 106, 79, 0.8);
+}
+
+html.theme-light .btn-outline:hover {
+  background: #E5C158;
+  color: #1B4332;
+  border-color: #FEF7E0;
+}
+
+html.theme-light .btn-solid {
+  background: linear-gradient(135deg, #D4AF37, #E5C158);
+  color: #1B4332;
+  border-color: transparent;
+}
+
+/* Light mode button hover effects */
+html.theme-light .btn-solid:hover {
+  background: linear-gradient(135deg, #E5C158, #D4AF37);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+}
+
+/* Light mode pills */
+html.theme-light .pill-animate {
+  background: rgba(45, 106, 79, 0.8);
+  border-color: #E5C158;
+  color: #D4AF37;
+}
+
+html.theme-light .pill-animate:hover {
+  background: rgba(45, 106, 79, 0.95);
+  border-color: #FEF7E0;
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+}
+
+/* Light mode form inputs */
+html.theme-light input,
+html.theme-light textarea {
+  background: rgba(45, 106, 79, 0.8);
+  border-color: #E5C158;
+  color: #D4AF37;
+}
+
+html.theme-light input:focus,
+html.theme-light textarea:focus {
+  border-color: #FEF7E0;
+  box-shadow: 0 0 0 3px rgba(254, 247, 224, 0.3);
+  background: rgba(45, 106, 79, 0.95);
+}
+
+html.theme-light input::placeholder,
+html.theme-light textarea::placeholder {
+  color: #B8941F;
+}
+
+/* Light mode hero section */
+html.theme-light .hero-section {
+  background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #1B4332 100%);
+}
+
+html.theme-light .hero-bg {
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+}
+
+/* Light mode display quote */
+html.theme-light .display-quote {
+  color: #D4AF37;
+}
+
+/* Light mode headquarters text */
+html.theme-light .headquarters-text {
+  color: rgba(212, 175, 55, 0.9);
+}
+
+/* Light mode footer */
+html.theme-light footer {
+  background: linear-gradient(135deg, #081C15, #1B4332);
+  border-top-color: #2D6A4F;
+}
+
+html.theme-light footer::before {
+  background: linear-gradient(90deg, transparent, #E5C158, transparent);
+}
+
+/* Light mode scrollbar */
+html.theme-light ::-webkit-scrollbar-track {
+  background: rgba(45, 106, 79, 0.3);
+}
+
+html.theme-light ::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+}
+
+html.theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #E5C158;
+}
+
+/* Light mode selection */
+html.theme-light ::selection {
+  background: rgba(212, 175, 55, 0.4);
+  color: #1B4332;
+}
+
+/* Light mode focus states */
+html.theme-light *:focus-visible {
+  outline: 2px solid #E5C158;
+  outline-offset: 2px;
+}
+
+/* Light mode section dividers */
+html.theme-light section::before {
+  background: linear-gradient(90deg, transparent, #E5C158, transparent);
+}
+
+/* Light mode vertical divider */
+html.theme-light .v-divider {
+  border-left-color: rgba(212, 175, 55, 0.4);
+}
+
+html.theme-light .v-divider::before {
+  background: linear-gradient(180deg, transparent, #E5C158, transparent);
+}
+
+/* Light mode fluid paragraph */
+html.theme-light .fluid-p {
+  color: #E5C158;
+}
+
+/* Light mode card content */
+html.theme-light .card-content {
+  color: #E5C158;
+}
+
+/* Light mode card title */
+html.theme-light .card-title {
+  color: #D4AF37;
+}
+
+/* Light mode lead text */
+html.theme-light .lead-lg {
+  color: #E5C158;
+}
+
+/* Additional light mode text overrides */
+html.theme-light h1,
+html.theme-light h2,
+html.theme-light h3,
+html.theme-light h4,
+html.theme-light h5,
+html.theme-light h6 {
+  color: #D4AF37;
+}
+
+html.theme-light p {
+  color: #E5C158;
+}
+
+html.theme-light span {
+  color: inherit;
+}
+
+/* Light mode navigation and header text */
+html.theme-light header {
+  color: #D4AF37;
+}
+
+html.theme-light nav a {
+  color: #D4AF37;
+}
+
+html.theme-light nav a:hover {
+  color: #E5C158;
+}
+
+/* Light mode hero text */
+html.theme-light .hero-brand,
+html.theme-light .hero-title,
+html.theme-light .hero-subtitle {
+  color: #D4AF37;
+}
+
+html.theme-light .hero-kicker {
+  color: #E5C158;
+}
+
+/* Light mode section text */
+html.theme-light .section-header + p {
+  color: #E5C158;
+}
+
+/* Light mode form labels and text */
+html.theme-light label {
+  color: #D4AF37;
+}
+
+/* Light mode footer text */
+html.theme-light footer p {
+  color: #E5C158;
+}
+
+html.theme-light footer h3,
+html.theme-light footer h4 {
+  color: #D4AF37;
+}
+
+/* Light mode scroll widget */
+html.theme-light .scroll-widget {
+  color: #E5C158;
+}
+
+html.theme-light .scroll-widget span {
+  color: #E5C158;
+}

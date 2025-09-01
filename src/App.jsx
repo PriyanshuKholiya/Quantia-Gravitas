@@ -13,6 +13,10 @@ import {
   Building2,
   Sun,
   Moon,
+  Star,
+  Award,
+  Users,
+  Target,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -22,22 +26,22 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 const Container = ({ className = "", id, children }) => (
   <div
     id={id}
-    className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}
+    className={`mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-12 ${className}`}
   >
     {children}
   </div>
 );
 
 const Section = ({ title, subtitle, id, index, className = "", children }) => (
-  <section id={id} className={`py-16 md:py-24 ${className} gsap-reveal`}>
+  <section id={id} className={`py-20 md:py-32 ${className} gsap-reveal`}>
     <Container>
-      <div className="mb-10 sm:mb-12">
-        <div className="border-t border-white/10 pt-6">
-          <h2 className="section-header mb-4 text-[14px] tracking-[0.2em] uppercase text-neutral-400/80">
+      <div className="mb-16 sm:mb-20">
+        <div className="border-t border-white/10 pt-8">
+          <h2 className="section-header mb-6 text-[14px] tracking-[0.25em] uppercase text-neutral-400/80">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-3 max-w-3xl text-neutral-400 leading-relaxed card-content">
+            <p className="mt-4 max-w-4xl text-neutral-400 leading-relaxed card-content text-lg">
               {subtitle}
             </p>
           )}
@@ -48,8 +52,9 @@ const Section = ({ title, subtitle, id, index, className = "", children }) => (
   </section>
 );
 
-const Pill = ({ children }) => (
-  <span className="inline-flex items-center rounded-full border border-white/15 px-2.5 py-1 text-[10px] sm:text-xs font-medium text-neutral-300 bg-white/[0.03] backdrop-blur pill-animate">
+const Pill = ({ children, icon: Icon }) => (
+  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-2 text-xs font-medium text-neutral-300 bg-white/[0.03] backdrop-blur pill-animate">
+    {Icon && <Icon className="size-3" />}
     {children}
   </span>
 );
@@ -104,11 +109,11 @@ export default function QuantiaGravitasLanding() {
       reveals.forEach((el) => {
         gsap.fromTo(
           el,
-          { autoAlpha: 0, y: 20 },
+          { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.8,
+            duration: 1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: el,
@@ -173,37 +178,37 @@ export default function QuantiaGravitasLanding() {
 
       heroTl
         .from(".hero-kicker > *", {
-          y: 20,
+          y: 30,
           autoAlpha: 0,
-          stagger: 0.12,
-          duration: 0.6,
+          stagger: 0.15,
+          duration: 0.8,
           ease: "power2.out",
         })
         .from(
           ".hero-brand",
-          { y: 22, autoAlpha: 0, duration: 0.7, ease: "power2.out" },
-          "-=0.2"
+          { y: 30, autoAlpha: 0, duration: 1, ease: "power2.out" },
+          "-=0.3"
         )
         .from(
           ".hero-title",
-          { y: 24, autoAlpha: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.2"
+          { y: 30, autoAlpha: 0, duration: 1.2, ease: "power2.out" },
+          "-=0.3"
         )
         .from(
           ".hero-subtitle",
-          { y: 18, autoAlpha: 0, duration: 0.6, ease: "power2.out" },
+          { y: 25, autoAlpha: 0, duration: 0.8, ease: "power2.out" },
           "-=0.2"
         )
         .from(
           [".hero-cta-1", ".hero-cta-2"],
           {
-            y: 16,
+            y: 20,
             autoAlpha: 0,
-            stagger: 0.1,
-            duration: 0.6,
+            stagger: 0.15,
+            duration: 0.8,
             ease: "power2.out",
           },
-          "-=0.1"
+          "-=0.2"
         );
 
       // Cards lift on enter
@@ -211,11 +216,11 @@ export default function QuantiaGravitasLanding() {
       cards.forEach((el) => {
         gsap.fromTo(
           el,
-          { y: 12, filter: "blur(2px)" },
+          { y: 20, filter: "blur(3px)" },
           {
             y: 0,
             filter: "blur(0px)",
-            duration: 0.6,
+            duration: 0.8,
             ease: "power2.out",
             scrollTrigger: { trigger: el, start: "top 90%" },
           }
@@ -237,7 +242,7 @@ export default function QuantiaGravitasLanding() {
             target.getBoundingClientRect().top +
             window.pageYOffset -
             headerOffset;
-          gsap.to(window, { duration: 0.6, ease: "power2.out", scrollTo: y });
+          gsap.to(window, { duration: 0.8, ease: "power2.out", scrollTo: y });
         });
       });
 
@@ -257,9 +262,9 @@ export default function QuantiaGravitasLanding() {
       const groups = gsap.utils.toArray(".gsap-stagger");
       groups.forEach((parent) => {
         gsap.from(parent.children, {
-          y: 12,
-          duration: 0.5,
-          stagger: 0.08,
+          y: 20,
+          duration: 0.6,
+          stagger: 0.1,
           ease: "power2.out",
           scrollTrigger: { trigger: parent, start: "top 90%" },
         });
@@ -273,26 +278,26 @@ export default function QuantiaGravitasLanding() {
   }, []);
 
   const navLinkClass = isLight
-    ? "text-lux-primary hover:text-lux-accent"
-    : "text-neutral-400 hover:text-white";
+    ? "text-luxury-gold hover:text-luxury-gold-light transition-colors duration-300"
+    : "text-neutral-400 hover:text-white transition-colors duration-300";
 
   return (
     <main
       ref={rootRef}
-      className={`min-h-screen overflow-x-hidden ${isLight ? "bg-white text-neutral-900" : "bg-neutral-950 text-neutral-200"}`}
+      className={`min-h-screen overflow-x-hidden ${isLight ? "theme-light bg-[#1B4332]" : "bg-neutral-950"}`}
     >
-      {/* Nav */}
-      <header className={isLight ? "sticky top-0 z-40 w-full border-b border-neutral-900/10 bg-white/70 backdrop-blur animate-fade-in" : "sticky top-0 z-40 w-full border-b border-white/10 bg-neutral-950/60 backdrop-blur animate-fade-in"}>
-        <Container className="flex items-center justify-between h-14 md:h-16">
-          <div className="flex items-center gap-2">
-            <div className="size-8 rounded-xl bg-white/10 text-white grid place-items-center shadow-sm">
-              <Globe2 className="size-4" />
+      {/* Enhanced Nav */}
+      <header className={`sticky top-0 z-40 w-full border-b backdrop-blur-xl animate-fade-in ${isLight ? "border-luxury-gold/20 bg-[#1B4332]/90 shadow-lg" : "border-white/10 bg-neutral-950/80 shadow-2xl"}`}>
+        <Container className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center gap-3">
+            <div className="size-10 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light text-white grid place-items-center shadow-lg animate-float">
+              <Globe2 className="size-5" />
             </div>
-            <span className="text-xs sm:text-sm tracking-[0.2em] uppercase text-neutral-300">
+            <span className={`text-sm sm:text-base tracking-[0.2em] uppercase font-semibold ${isLight ? "text-luxury-gold" : "text-neutral-300"}`}>
               Quantia Gravitas FZC LLC
             </span>
           </div>
-          <nav className="hidden sm:flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] md:text-xs uppercase tracking-wide">
+          <nav className="hidden sm:flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] md:text-sm uppercase tracking-wide">
             <a href="#about" className={navLinkClass}>
               About
             </a>
@@ -308,16 +313,14 @@ export default function QuantiaGravitasLanding() {
             <a href="#sustainability" className={navLinkClass}>
               Sustainability
             </a>
-            <a href="#contact" className={navLinkClass}>
-              Contact
-            </a>
+            
           </nav>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button
               type="button"
               aria-label="Toggle theme"
               onClick={toggleTheme}
-              className={isLight ? "inline-flex items-center gap-2 rounded-full border border-neutral-900/15 bg-neutral-900/[0.04] text-neutral-900 px-3 py-2 text-[11px] font-semibold hover:bg-neutral-900/[0.08] transition-transform hover:-translate-y-0.5" : "inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 text-white px-3 py-2 text-[11px] font-semibold hover:bg-white/10 transition-transform hover:-translate-y-0.5"}
+              className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 ${isLight ? "border-luxury-gold/30 bg-luxury-gold/10 text-luxury-gold hover:bg-luxury-gold/20 shadow-md" : "border-white/15 bg-white/5 text-white hover:bg-white/10 shadow-lg"}`}
             >
               {isLight ? <Moon className="size-4" /> : <Sun className="size-4" />}
               <span className="hidden sm:inline">{isLight ? "Dark" : "Light"}</span>
@@ -329,49 +332,47 @@ export default function QuantiaGravitasLanding() {
         </Container>
       </header>
 
-      {/* Hero */}
+      {/* Enhanced Hero */}
       <section className="hero-section relative overflow-hidden">
-        <div className="hero-bg pointer-events-none absolute inset-0 will-change-transform bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.06),transparent_60%)]" />
-        <Container className="min-h-[88svh] py-16 md:py-24 grid place-items-center">
-          <motion.div className="max-w-3xl text-center">
+        <div className="hero-bg pointer-events-none absolute inset-0 will-change-transform" />
+        <Container className="min-h-[90svh] py-20 md:py-32 grid place-items-center">
+          <motion.div className="max-w-4xl text-center">
             
-            <h1 className="hero-brand font-editorial text-[clamp(2.5rem,7.5vw,6.5rem)] leading-[1.04] tracking-tight text-neutral-100">
+            <h1 className="hero-brand font-editorial text-[clamp(3rem,8vw,7rem)] leading-[1.04] tracking-tight text-neutral-100 mb-4">
               QUANTIA GRAVITAS
             </h1>
-            <div className="hero-kicker mt-2 flex items-center justify-center">
-              <p className="text-[10px] sm:text-xs tracking-[0.35em] uppercase text-neutral-400">
-                FZC LLC
-              </p>
+            <div className="hero-kicker mt-4 flex items-center justify-center">
+              <Pill icon={Star}>FZC LLC</Pill>
             </div>
-            <h2 className="hero-title font-editorial text-[clamp(1.35rem,2.4vw+0.6rem,2.75rem)] leading-[1.18] text-neutral-100 text-balance max-w-[30ch] mx-auto">
+            <h2 className="hero-title font-editorial text-[clamp(1.5rem,2.8vw+0.8rem,3rem)] leading-[1.18] text-neutral-100 text-balance max-w-[35ch] mx-auto mt-8">
               Purpose, Precision and Possibility — for a future that respects
               people, planet, and progress.
             </h2>
-            <p className="hero-subtitle mt-5 fluid-p text-neutral-400 max-w-2xl mx-auto">
-              Born in the UAE. Inspired by the world. Built for humanity’s
+            <p className="hero-subtitle mt-8 fluid-p text-neutral-400 max-w-3xl mx-auto">
+              Born in the UAE. Inspired by the world. Built for humanity's
               future.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
               <a href="#about" className="btn-pill btn-outline hero-cta-1">
                 Explore Quantia Gravitas <ArrowRight className="size-4" />
               </a>
-              <a href="#contact" className="btn-pill btn-outline hero-cta-2">
+              <a href="#contact" className="btn-pill btn-solid hero-cta-2">
                 Get in touch
               </a>
             </div>
           </motion.div>
         </Container>
         
-        {/* Scroll Down Widget */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-widget">
-          <div className="flex flex-col items-center gap-3 text-neutral-400 cursor-pointer group" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
-            <span className="text-xs tracking-[0.3em] uppercase font-medium group-hover:text-neutral-300 transition-colors">Scroll</span>
-            <div className="w-0.5 h-10 bg-gradient-to-b from-neutral-400 via-neutral-400 to-transparent group-hover:from-neutral-300 group-hover:via-neutral-300 transition-all duration-300"></div>
+        {/* Enhanced Scroll Down Widget */}
+        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 scroll-widget">
+          <div className="flex flex-col items-center gap-4 text-neutral-400 cursor-pointer group" onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}>
+            <span className="text-sm tracking-[0.3em] uppercase font-medium group-hover:text-neutral-300 transition-colors duration-300">Scroll</span>
+            <div className="w-0.5 h-12 bg-gradient-to-b from-neutral-400 via-neutral-400 to-transparent group-hover:from-neutral-300 group-hover:via-neutral-300 transition-all duration-500"></div>
           </div>
         </div>
       </section>
 
-      {/* About */}
+      {/* Enhanced About */}
       <Section
         index={1}
         id="about"
@@ -381,7 +382,7 @@ export default function QuantiaGravitasLanding() {
         <div className="creative-grid">
           {/* Left: oversized uppercase statement with warm accent highlights */}
           <div className="mega-text text-neutral-100">
-            WE BELIEVE TOMORROW’S BUSINESSES MUST BE BUILT ON{" "}
+            WE BELIEVE TOMORROW'S BUSINESSES MUST BE BUILT ON{" "}
             <span className="accent">PURPOSE</span>,{" "}
             <span className="accent">RESILIENCE</span>, AND{" "}
             <span className="accent">INNOVATION</span>.
@@ -394,12 +395,14 @@ export default function QuantiaGravitasLanding() {
               at the intersection of global trade, culture, and ideas.
             </p>
 
-            <div className="mt-5 card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-              <div className="flex items-center gap-3">
-                <Building2 className="size-5 text-neutral-300" />
-                <h3 className="font-semibold text-neutral-100">Global Perspective</h3>
+            <div className="mt-8 card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+              <div className="flex items-center gap-4">
+                <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                  <Building2 className="size-6 text-white" />
+                </div>
+                <h3 className="font-semibold text-neutral-100 text-lg">Global Perspective</h3>
               </div>
-              <p className="mt-3 text-sm text-neutral-400">
+              <p className="mt-4 text-base text-neutral-400 leading-relaxed">
                 From Dubai to London, Singapore to Silicon Valley, Africa to
                 India — we bridge cultures, industries, and ideas to turn
                 opportunity into meaningful impact.
@@ -409,25 +412,35 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Vision & Mission */}
+      {/* Enhanced Vision & Mission */}
       <Section index={2} id="vision" title="Vision & Mission">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <p className="display-quote text-neutral-100">
             Catalyzing <span className="accent">innovation</span>, advancing human{" "}
             <span className="accent">progress</span>, and driving <span className="accent">impact</span>.
           </p>
         </div>
-        <div className="mt-8 grid md:grid-cols-2 gap-8 gsap-stagger">
-          <div className="card-lift rounded-2xl p-6 border border-white/12 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h3 className="fluid-h3 card-title text-neutral-100">Vision</h3>
-            <p className="mt-2 text-neutral-300/90 card-content">
+        <div className="mt-12 grid md:grid-cols-2 gap-10 gsap-stagger">
+          <div className="card-lift rounded-3xl p-8 border border-white/12 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                <Target className="size-6 text-white" />
+              </div>
+              <h3 className="fluid-h3 card-title text-neutral-100">Vision</h3>
+            </div>
+            <p className="mt-3 text-neutral-300/90 card-content text-lg leading-relaxed">
               To become a catalyst for sustainable innovation, human progress,
               and transformative impact worldwide.
             </p>
           </div>
-          <div className="card-lift rounded-2xl p-6 border border-white/12 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h3 className="fluid-h3 card-title text-neutral-100">Mission</h3>
-            <p className="mt-2 text-neutral-300/90 card-content">
+          <div className="card-lift rounded-3xl p-8 border border-white/12 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                <Award className="size-6 text-white" />
+              </div>
+              <h3 className="fluid-h3 card-title text-neutral-100">Mission</h3>
+            </div>
+            <p className="mt-3 text-neutral-300/90 card-content text-lg leading-relaxed">
               To pioneer ideas, foster growth, and create lasting value through
               collaboration, technology, and purpose‑driven ventures.
             </p>
@@ -435,7 +448,7 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Philosophy & Edge */}
+      {/* Enhanced Philosophy & Edge */}
       <Section
         index={3}
         id="philosophy"
@@ -448,57 +461,65 @@ export default function QuantiaGravitasLanding() {
           </p>
         </div>
 
-        <div className="mt-8 grid md:grid-cols-2 gap-6 items-stretch gsap-stagger">
-          <div className="rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-            <div className="flex items-start gap-3">
-              <Globe2 className="mt-1 size-5 text-neutral-300" />
+        <div className="mt-12 grid md:grid-cols-2 gap-8 items-stretch gsap-stagger">
+          <div className="rounded-3xl border border-white/12 p-8 bg-white/[0.03] hover:shadow-lg transition-all duration-300">
+            <div className="flex items-start gap-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3 mt-2">
+                <Globe2 className="size-6 text-white" />
+              </div>
               <div>
-                <h4 className="card-title text-neutral-100">Global Perspective</h4>
-                <p className="mt-1 text-neutral-300/90 card-content">Thinking beyond borders with worldwide relevance.</p>
+                <h4 className="card-title text-neutral-100 text-lg font-semibold">Global Perspective</h4>
+                <p className="mt-3 text-neutral-300/90 card-content leading-relaxed">Thinking beyond borders with worldwide relevance.</p>
               </div>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-            <div className="flex items-start gap-3">
-              <Sparkles className="mt-1 size-5 text-neutral-300" />
+          <div className="rounded-3xl border border-white/12 p-8 bg-white/[0.03] hover:shadow-lg transition-all duration-300">
+            <div className="flex items-start gap-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3 mt-2">
+                <Sparkles className="size-6 text-white" />
+              </div>
               <div>
-                <h4 className="card-title text-neutral-100">Innovation at Core</h4>
-                <p className="mt-1 text-neutral-300/90 card-content">Embracing bold ideas and transformative models.</p>
+                <h4 className="card-title text-neutral-100 text-lg font-semibold">Innovation at Core</h4>
+                <p className="mt-3 text-neutral-300/90 card-content leading-relaxed">Embracing bold ideas and transformative models.</p>
               </div>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-            <div className="flex items-start gap-3">
-              <Leaf className="mt-1 size-5 text-neutral-300" />
+          <div className="rounded-3xl border border-white/12 p-8 bg-white/[0.03] hover:shadow-lg transition-all duration-300">
+            <div className="flex items-start gap-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3 mt-2">
+                <Leaf className="size-6 text-white" />
+              </div>
               <div>
-                <h4 className="card-title text-neutral-100">Sustainability</h4>
-                <p className="mt-1 text-neutral-300/90 card-content">Growth that respects people, planet, and purpose.</p>
+                <h4 className="card-title text-neutral-100 text-lg font-semibold">Sustainability</h4>
+                <p className="mt-3 text-neutral-300/90 card-content leading-relaxed">Growth that respects people, planet, and purpose.</p>
               </div>
             </div>
           </div>
-          <div className="rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-            <div className="flex items-start gap-3">
-              <ShieldCheck className="mt-1 size-5 text-neutral-300" />
+          <div className="rounded-3xl border border-white/12 p-8 bg-white/[0.03] hover:shadow-lg transition-all duration-300">
+            <div className="flex items-start gap-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3 mt-2">
+                <ShieldCheck className="size-6 text-white" />
+              </div>
               <div>
-                <h4 className="card-title text-neutral-100">Gravitas in Action</h4>
-                <p className="mt-1 text-neutral-300/90 card-content">Built on trust, depth, and measurable impact.</p>
+                <h4 className="card-title text-neutral-100 text-lg font-semibold">Gravitas in Action</h4>
+                <p className="mt-3 text-neutral-300/90 card-content leading-relaxed">Built on trust, depth, and measurable impact.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-          <h3 className="fluid-h3 card-title text-neutral-100 mb-2">Our Edge</h3>
-          <ul className="grid sm:grid-cols-2 gap-2 text-neutral-300/90 card-content">
-            <li>• A UAE-based enterprise with a global vision</li>
-            <li>• Rooted in credibility and innovation</li>
-            <li>• Built for adaptability in an evolving world</li>
-            <li>• Focused on transformative collaborations</li>
+        <div className="mt-12 card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+          <h3 className="fluid-h3 card-title text-neutral-100 mb-4">Our Edge</h3>
+          <ul className="grid sm:grid-cols-2 gap-3 text-neutral-300/90 card-content text-lg">
+            <li className="flex items-center gap-3"><Star className="size-4 text-luxury-gold" /> A UAE-based enterprise with a global vision</li>
+            <li className="flex items-center gap-3"><Star className="size-4 text-luxury-gold" /> Rooted in credibility and innovation</li>
+            <li className="flex items-center gap-3"><Star className="size-4 text-luxury-gold" /> Built for adaptability in an evolving world</li>
+            <li className="flex items-center gap-3"><Star className="size-4 text-luxury-gold" /> Focused on transformative collaborations</li>
           </ul>
         </div>
       </Section>
 
-      {/* Global Gravitas */}
+      {/* Enhanced Global Gravitas */}
       <Section
         index={4}
         title="Global Gravitas (Signature)"
@@ -510,37 +531,43 @@ export default function QuantiaGravitasLanding() {
             industries, and cultures.
           </p>
         </div>
-        <div className="mt-8 grid md:grid-cols-3 gap-6 items-stretch auto-rows-fr gsap-stagger">
+        <div className="mt-12 grid md:grid-cols-3 gap-8 items-stretch auto-rows-fr gsap-stagger">
           {[
             {
               title: "Inclusivity without Boundaries",
               desc: "Bringing together minds from every continent.",
+              icon: Users,
             },
             {
               title: "Innovation with Purpose",
               desc: "Technology must serve humanity, not the other way around.",
+              icon: Target,
             },
             {
               title: "Impact with Integrity",
               desc: "Every initiative must leave the world better than we found it.",
+              icon: Award,
             },
           ].map((card) => (
             <div
               key={card.title}
-              className="card-lift h-full min-h-[168px] flex flex-col rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1"
+              className="card-lift h-full min-h-[200px] flex flex-col rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1"
             >
-              <div className="min-h-[48px] md:min-h-[56px]">
-                <h4 className="card-title text-neutral-100 leading-snug">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                  <card.icon className="size-6 text-white" />
+                </div>
+                <h4 className="card-title text-neutral-100 leading-snug text-lg font-semibold">
                   {card.title}
                 </h4>
               </div>
-              <p className="mt-2 text-sm text-neutral-400 card-content">{card.desc}</p>
+              <p className="mt-2 text-base text-neutral-400 card-content leading-relaxed">{card.desc}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* World Map Anchors */}
+      {/* Enhanced World Map Anchors */}
       <Section
         index={5}
         id="anchors"
@@ -548,42 +575,44 @@ export default function QuantiaGravitasLanding() {
         subtitle="Key nodes in our global network."
       >
         <div className="max-w-3xl mx-auto text-center">
-          <p className="lead-lg text-neutral-300/90">Key nodes in our global network</p>
+          <p className="lead-lg text-neutral-300/90 text-xl">Key nodes in our global network</p>
         </div>
-        <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch gsap-stagger">
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch gsap-stagger">
           {[
-            { city: "Dubai", tag: "Innovation Hub" },
-            { city: "London", tag: "Strategic Collaborations" },
-            { city: "Singapore", tag: "Sustainability & Smart Living" },
-            { city: "Silicon Valley", tag: "Tech & AI Inspiration" },
-            { city: "Africa", tag: "Inclusive Growth" },
-            { city: "India", tag: "Talent & Ideas" },
-            { city: "Mauritius", tag: "Financial Connectivity" },
-            { city: "Maldives", tag: "Blue Economy & Sustainability" },
-            { city: "UK", tag: "Global Influence & Thought Leadership" },
+            { city: "Dubai", tag: "Innovation Hub", icon: Sparkles },
+            { city: "London", tag: "Strategic Collaborations", icon: Building2 },
+            { city: "Singapore", tag: "Sustainability & Smart Living", icon: Leaf },
+            { city: "Silicon Valley", tag: "Tech & AI Inspiration", icon: Target },
+            { city: "Africa", tag: "Inclusive Growth", icon: Users },
+            { city: "India", tag: "Talent & Ideas", icon: Award },
+            { city: "Mauritius", tag: "Financial Connectivity", icon: Globe2 },
+            { city: "Maldives", tag: "Blue Economy & Sustainability", icon: Leaf },
+            { city: "UK", tag: "Global Influence & Thought Leadership", icon: Star },
           ].map((n) => (
             <div
               key={n.city}
-              className="group card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] hover:shadow-sm transition-transform hover:-translate-y-1"
+              className="group card-lift rounded-3xl border border-white/12 p-6 bg-white/[0.03] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex items-center gap-2">
-                <MapPin className="size-4 text-neutral-400" />
-                <h4 className="card-title text-neutral-100">{n.city}</h4>
+              <div className="flex items-center gap-3 mb-3">
+                <div className="size-10 rounded-xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-2.5">
+                  <n.icon className="size-5 text-white" />
+                </div>
+                <h4 className="card-title text-neutral-100 text-lg font-semibold">{n.city}</h4>
               </div>
-              <p className="mt-1 text-sm text-neutral-400 card-content">{n.tag}</p>
+              <p className="text-base text-neutral-400 card-content leading-relaxed">{n.tag}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* Manifesto */}
+      {/* Enhanced Manifesto */}
       <Section index={6} title="Manifesto">
-        <div className="max-w-3xl mx-auto text-center space-y-5">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
           <p className="display-quote text-neutral-100">
             We are a <span className="accent">movement</span> — born in the UAE, inspired by the world,
-            built for humanity’s <span className="accent">future</span>.
+            built for humanity's <span className="accent">future</span>.
           </p>
-          <p className="lead-lg text-neutral-300/90">
+          <p className="lead-lg text-neutral-300/90 text-xl leading-relaxed">
             Our identity is not confined to industries or activities; it is rooted in the
             pursuit of progress, collaboration, and sustainable impact. Quantia Gravitas is
             the courage to dream globally and the determination to deliver responsibly.
@@ -591,22 +620,27 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Ecosystem & Council */}
+      {/* Enhanced Ecosystem & Council */}
       <Section
         index={7}
         title="Ecosystem"
         subtitle="We are curating a network of innovators, entrepreneurs, institutions, and visionaries."
       >
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <p className="display-quote text-neutral-100">
             A living <span className="accent">ecosystem</span> of thinkers, doers, and builders.
           </p>
         </div>
-        <div className="mt-8 card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-          <h3 className="fluid-h3 font-semibold text-neutral-100">
-            Council of the Future
-          </h3>
-          <p className="mt-2 text-neutral-300/90">
+        <div className="mt-12 card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="size-16 rounded-3xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-4">
+              <Users className="size-8 text-white" />
+            </div>
+            <h3 className="fluid-h3 font-semibold text-neutral-100">
+              Council of the Future
+            </h3>
+          </div>
+          <p className="mt-4 text-neutral-300/90 text-lg leading-relaxed">
             Soon, Quantia Gravitas will launch the Council of the Future — a
             global collective of visionaries, thinkers, entrepreneurs, and
             leaders dedicated to shaping the next century of innovation and
@@ -615,34 +649,44 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Sustainability */}
+      {/* Enhanced Sustainability */}
       <Section
         index={8}
         id="sustainability"
         title="Sustainability Commitment"
         subtitle="We align every venture with responsibility, inclusivity, and long‑term positive impact."
       >
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center">
           <p className="display-quote text-neutral-100">
             Committing to sustainability with measurable impact.
           </p>
         </div>
-        <div className="mt-8 grid md:grid-cols-2 gap-8 gsap-stagger">
-          <div className="card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h4 className="card-title text-neutral-100">
-              Guided by the UN SDGs
-            </h4>
-            <p className="mt-2 text-sm text-neutral-300/90 card-content">
+        <div className="mt-12 grid md:grid-cols-2 gap-10 gsap-stagger">
+          <div className="card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                <Target className="size-6 text-white" />
+              </div>
+              <h4 className="card-title text-neutral-100 text-lg font-semibold">
+                Guided by the UN SDGs
+              </h4>
+            </div>
+            <p className="mt-3 text-base text-neutral-300/90 card-content leading-relaxed">
               From fostering inclusive growth to advancing climate‑conscious
               innovation, our philosophy embraces globally recognized goals for
               people and planet.
             </p>
           </div>
-          <div className="card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h4 className="card-title text-neutral-100">
-              Impact You Can Trust
-            </h4>
-            <p className="mt-2 text-sm text-neutral-300/90 card-content">
+          <div className="card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="size-12 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-3">
+                <ShieldCheck className="size-6 text-white" />
+              </div>
+              <h4 className="card-title text-neutral-100 text-lg font-semibold">
+                Impact You Can Trust
+              </h4>
+            </div>
+            <p className="mt-3 text-base text-neutral-300/90 card-content leading-relaxed">
               We prioritize measurable outcomes, transparent reporting, and
               responsible growth.
             </p>
@@ -650,33 +694,37 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Founder message */}
+      {/* Enhanced Founder message */}
       <Section index={9} title="Message from the Founder">
-        <blockquote className="card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03]">
-          <p className="display-quote text-neutral-100">
-            “At Quantia Gravitas, we think beyond boundaries and act with{" "}
+        <blockquote className="card-lift rounded-3xl border border-white/12 p-10 bg-white/[0.03] relative">
+          <div className="absolute top-6 left-6 text-6xl text-luxury-gold opacity-20">"</div>
+          <p className="display-quote text-neutral-100 relative z-10">
+            At Quantia Gravitas, we think beyond boundaries and act with{" "}
             <span className="accent">purpose</span>. Our journey has just begun — we are
-            building a legacy of <span className="accent">innovation</span>, impact and progress.”
+            building a legacy of <span className="accent">innovation</span>, impact and progress.
           </p>
         </blockquote>
       </Section>
 
-      {/* Stay Connected */}
+      {/* Enhanced Stay Connected */}
       <Section
         index={10}
         id="contact"
         title="Stay Connected"
         subtitle="We are shaping our next chapter. Stay connected to witness the future unfold."
       >
-        <div className="grid md:grid-cols-2 gap-8 gsap-stagger">
+        <div className="grid md:grid-cols-2 gap-10 gsap-stagger">
           {/* Email subscription */}
-          <div className="card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h4 className="font-semibold flex items-center gap-2 text-neutral-100">
-              <Mail className="size-4 text-neutral-300" /> Email Subscription
+          <div className="card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <h4 className="font-semibold flex items-center gap-3 text-neutral-100 text-lg mb-6">
+              <div className="size-10 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-2.5">
+                <Mail className="size-5 text-white" />
+              </div>
+              Email Subscription
             </h4>
             {!subscribed ? (
               <form
-                className="mt-4 flex flex-col sm:flex-row gap-3"
+                className="flex flex-col sm:flex-row gap-4"
                 onSubmit={(e) => {
                   e.preventDefault();
                   setSubscribed(true);
@@ -686,30 +734,33 @@ export default function QuantiaGravitasLanding() {
                   type="email"
                   required
                   placeholder="your@email.com"
-                  className="flex-1 rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                  className="flex-1 rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-5 py-4 text-base focus:outline-none focus:ring-2 focus:ring-luxury-gold/20 transition-all duration-300"
                 />
                 <button type="submit" className="btn-pill btn-solid">
                   Subscribe <Send className="size-4" />
                 </button>
               </form>
             ) : (
-              <div className="mt-4 flex items-center gap-2 text-emerald-400">
-                <CheckCircle2 className="size-5" />{" "}
-                <span className="text-sm">
-                  Subscribed — we’ll keep you posted.
+              <div className="flex items-center gap-3 text-emerald-400">
+                <CheckCircle2 className="size-6" />{" "}
+                <span className="text-base">
+                  Subscribed — we'll keep you posted.
                 </span>
               </div>
             )}
           </div>
 
           {/* Contact form */}
-          <div className="card-lift rounded-2xl border border-white/12 p-6 bg-white/[0.03] transition-transform hover:-translate-y-1">
-            <h4 className="font-semibold flex items-center gap-2 text-neutral-100">
-              <Mail className="size-4 text-neutral-300" /> Contact Form
+          <div className="card-lift rounded-3xl border border-white/12 p-8 bg-white/[0.03] transition-transform hover:-translate-y-1">
+            <h4 className="font-semibold flex items-center gap-3 text-neutral-100 text-lg mb-6">
+              <div className="size-10 rounded-2xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-2.5">
+                <Mail className="size-5 text-white" />
+              </div>
+              Contact Form
             </h4>
             {!sent ? (
               <form
-                className="mt-4 space-y-3"
+                className="space-y-4"
                 onSubmit={(e) => {
                   e.preventDefault();
                   setSent(true);
@@ -719,32 +770,32 @@ export default function QuantiaGravitasLanding() {
                   required
                   name="name"
                   placeholder="Your name"
-                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-5 py-4 text-base focus:outline-none focus:ring-2 focus:ring-luxury-gold/20 transition-all duration-300"
                 />
                 <input
                   required
                   type="email"
                   name="email"
                   placeholder="Email address"
-                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-5 py-4 text-base focus:outline-none focus:ring-2 focus:ring-luxury-gold/20 transition-all duration-300"
                 />
                 <textarea
                   required
                   name="message"
                   placeholder="How can we collaborate?"
                   rows={4}
-                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20"
+                  className="w-full rounded-xl border border-white/15 bg-white/[0.06] placeholder:text-neutral-500 px-5 py-4 text-base focus:outline-none focus:ring-2 focus:ring-luxury-gold/20 transition-all duration-300"
                 />
-                <button type="submit" className="btn-pill btn-solid">
+                <button type="submit" className="btn-pill btn-solid w-full">
                   Send message <ArrowRight className="size-4" />
                 </button>
                 
               </form>
             ) : (
-              <div className="mt-4 flex items-center gap-2 text-emerald-400">
-                <CheckCircle2 className="size-5" />{" "}
-                <span className="text-sm">
-                  Message sent — we’ll reach out shortly.
+              <div className="flex items-center gap-3 text-emerald-400">
+                <CheckCircle2 className="size-6" />{" "}
+                <span className="text-base">
+                  Message sent — we'll reach out shortly.
                 </span>
               </div>
             )}
@@ -752,20 +803,22 @@ export default function QuantiaGravitasLanding() {
         </div>
       </Section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/10 py-10 bg-neutral-950/80">
+      {/* Enhanced Footer */}
+      <footer className="border-t border-white/10 py-16 bg-neutral-950/80 relative">
         <Container>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="font-semibold text-neutral-100">
+              <p className="font-semibold text-neutral-100 text-lg mb-2">
                 Quantia Gravitas FZC LLC
               </p>
-              <p className="text-sm text-neutral-400">
+              <p className="text-base text-neutral-400">
                 Ajman NuVentures Centre Free Zone, UAE
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-neutral-500">
-              <Globe2 className="size-4" />{" "}
+            <div className="flex items-center gap-3 text-sm text-neutral-500">
+              <div className="size-8 rounded-xl bg-gradient-to-br from-luxury-gold to-luxury-gold-light p-2">
+                <Globe2 className="size-4 text-white" />
+              </div>
               <span>
                 © {new Date().getFullYear()} Quantia Gravitas. All rights
                 reserved.
